@@ -1,0 +1,7 @@
+.container {
+  display: flex;
+}
+
+.buttonGroup {
+  margin: 0 auto !important;
+}
