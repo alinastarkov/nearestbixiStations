@@ -8,3 +8,7 @@ body {
   font-family: "Patua One";
   font-size: 55px;
 }
+
+.card {
+  margin: 1vh auto !important;
+}

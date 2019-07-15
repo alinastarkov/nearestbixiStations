@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 
 import Buttons from "./components/Buttons/Buttons";
+import DisplayCard from "./components/InfoDisplay/InfoDisplay";
+import { Container, Header } from "semantic-ui-react";
 import {
   getAllBixiStationsInfo,
   getAllBixiStationsAvailability
@@ -29,6 +31,7 @@ class App extends React.Component {
         }),
       err => this.setState({ errMess: err.message })
     );
+    console.log(this.props);
   }
 
   handleClick = async functionality => {
@@ -53,13 +56,17 @@ class App extends React.Component {
         this.state.nearestStations,
         1
       );
-      info = <div>{nearestRentStation[0].name}</div>;
+      info = nearestRentStation.map(station => (
+        <DisplayCard className="displayCard" nearestStation={station} />
+      ));
     } else if (this.state.usrFunct === "return") {
       const nearestReturnStation = getNearestStationsToReturn(
         this.state.nearestStations,
         1
       );
-      info = <div>{nearestReturnStation[0].name}</div>;
+      info = nearestReturnStation.map(station => (
+        <DisplayCard className="displayCard" nearestStation={station} />
+      ));
     }
     return info;
   };
@@ -67,11 +74,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div>
+        <Container>
           <h1 className="Header">Find your nearest bixi stations</h1>
           <Buttons className="buttons" handleClick={this.handleClick} />
-          {this.getInformation()}
-        </div>
+        </Container>
+        {this.getInformation()}
       </div>
     );
   }
